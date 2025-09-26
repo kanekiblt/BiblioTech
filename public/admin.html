@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - BiblioTech</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">BiblioTech Admin</div>
+        <nav id="nav-links"></nav>
+    </header>
+    <main>
+        <h1>Agregar Nuevo Libro</h1>
+        <div class="form-wrapper">
+            <form id="add-book-form">
+                <input type="text" id="book-title" placeholder="Título" required>
+                <input type="text" id="book-author" placeholder="Autor" required>
+                <input type="date" id="book-date" required>
+                <input type="number" id="book-price" placeholder="Precio" required>
+                <input type="number" id="book-stock" placeholder="Stock" required>
+                <input type="text" id="book-category" placeholder="Categoría" required>
+                <input type="url" id="book-cover" placeholder="URL Portada" required>
+                <textarea id="book-synopsis" placeholder="Sinopsis" required></textarea>
+                <button type="submit">Agregar Libro</button>
+            </form>
+        </div>
+
+        <h2>Libros Existentes</h2>
+        <div id="book-container"></div>
+    </main>
+
+    <script src="js/main.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadBooks(true); // true indica que es vista admin
+        });
+
+        document.getElementById('add-book-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const book = {
+                title: document.getElementById('book-title').value,
+                author: document.getElementById('book-author').value,
+                publication_date: document.getElementById('book-date').value,
+                price: parseFloat(document.getElementById('book-price').value),
+                stock: parseInt(document.getElementById('book-stock').value),
+                category: document.getElementById('book-category').value,
+                cover_url: document.getElementById('book-cover').value,
+                synopsis: document.getElementById('book-synopsis').value
+            };
+            await addBook(book);
+            loadBooks(true);
+        });
+    </script>
+</body>
+
+</html>

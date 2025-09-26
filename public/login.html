@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login - BiblioTech</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="form-wrapper">
+        <form id="login-form">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+            <p>¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
+            <p class="error-msg" id="login-error"></p>
+        </form>
+    </div>
+
+    <script src="js/main.js" defer></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const res = await loginUser(username, password);
+            if (res.success) {
+                localStorage.setItem('user', JSON.stringify(res.user));
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('login-error').textContent = res.error;
+            }
+        });
+    </script>
+</body>
+
+</html>
